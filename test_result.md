@@ -314,16 +314,10 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "NVIDIA AI Integration Setup"
-    - "Document Upload & Processing API"
-    - "Questions API Endpoints"
-    - "Suggestions API Endpoints"
-    - "Grievances API Endpoints"
-    - "Watchlists & Dashboard APIs"
+  current_focus: []
   stuck_tasks: []
-  test_all: false
-  test_priority: "high_first"
+  test_all: true
+  test_priority: "completed"
 
 agent_communication:
   - agent: "main"
