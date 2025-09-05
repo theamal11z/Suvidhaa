@@ -270,7 +270,8 @@ class SuvidhaaAPITester:
                 'evidence_files': ('grievance_evidence.txt', io.BytesIO(evidence_content), 'text/plain')
             }
             
-            grievance_data = {
+            # Send as form data (API now expects individual form fields)
+            data = {
                 'user_name': TEST_USER_NAME,
                 'email': TEST_USER_EMAIL,
                 'phone': TEST_USER_PHONE,
@@ -282,7 +283,7 @@ class SuvidhaaAPITester:
             
             headers = {'Accept': 'application/json'}
             
-            response = requests.post(f"{BASE_URL}/grievances", files=files, data=grievance_data, headers=headers)
+            response = requests.post(f"{BASE_URL}/grievances", files=files, data=data, headers=headers)
             
             if response.status_code == 200:
                 grievance = response.json()
