@@ -448,7 +448,13 @@ async def file_grievance(
                 evidence_base64.append(base64.b64encode(file_content).decode('utf-8'))
         
         grievance = Grievance(
-            **grievance_data.dict(),
+            user_name=user_name,
+            email=email,
+            phone=phone,
+            grievance_text=grievance_text,
+            category=category,
+            affected_area=affected_area,
+            government_office=government_office,
             evidence_urls=evidence_urls,
             evidence_base64=evidence_base64
         )
