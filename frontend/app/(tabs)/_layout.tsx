@@ -32,6 +32,20 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
+        name="index"
+        options={{
+          title: 'HOME',
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons 
+              name={focused ? 'home' : 'home-outline'} 
+              size={size} 
+              color={color} 
+            />
+          ),
+          headerTitle: 'सुविधा - Home',
+        }}
+      />
+      <Tabs.Screen
         name="understand"
         options={{
           title: 'UNDERSTAND',

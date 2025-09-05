@@ -10,9 +10,11 @@ import {
   Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useStore } from '../store/useStore';
 
 export const UserProfile: React.FC = () => {
+  const router = useRouter();
   const { user, setUser } = useStore();
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
@@ -33,7 +35,25 @@ export const UserProfile: React.FC = () => {
 
     setUser({ name: name.trim(), email: email.trim(), phone: phone.trim() });
     setIsEditing(false);
-    Alert.alert('Success', 'Profile updated successfully');
+    
+    // Show success message and navigate to home after profile setup
+    if (!user) {
+      Alert.alert(
+        'Welcome to Suvidhaa!', 
+        'Your profile has been setup successfully. You can now explore all features.',
+        [
+          {
+            text: 'Get Started',
+            onPress: () => {
+              // Navigate to the main tabs (home)
+              router.replace('/(tabs)');
+            }
+          }
+        ]
+      );
+    } else {
+      Alert.alert('Success', 'Profile updated successfully');
+    }
   };
 
   const handleEdit = () => {
@@ -46,6 +66,9 @@ export const UserProfile: React.FC = () => {
       setEmail(user.email);
       setPhone(user.phone || '');
       setIsEditing(false);
+    } else {
+      // If no user exists, go back to welcome screen
+      router.replace('/');
     }
   };
 
@@ -57,8 +80,13 @@ export const UserProfile: React.FC = () => {
       <View style={styles.header}>
         <Ionicons name="person-circle-outline" size={80} color="#2196F3" />
         <Text style={styles.title}>
-          {isEditing ? (user ? 'Edit Profile' : 'Setup Profile') : 'My Profile'}
+          {isEditing ? (user ? 'Edit Profile' : 'Setup Your Profile') : 'My Profile'}
         </Text>
+        {!user && (
+          <Text style={styles.subtitle}>
+            Please provide your details to get started with Suvidhaa
+          </Text>
+        )}
       </View>
 
       <View style={styles.form}>
@@ -104,13 +132,13 @@ export const UserProfile: React.FC = () => {
         {isEditing ? (
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-              <Text style={styles.saveButtonText}>Save</Text>
+              <Text style={styles.saveButtonText}>
+                {!user ? 'Complete Setup' : 'Save Changes'}
+              </Text>
             </TouchableOpacity>
-            {user && (
-              <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
-                <Text style={styles.cancelButtonText}>Cancel</Text>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
+              <Text style={styles.cancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
           </View>
         ) : (
           <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
@@ -124,6 +152,24 @@ export const UserProfile: React.FC = () => {
             <Text style={styles.infoText}>
               Your information is used to submit questions, suggestions, and grievances to the appropriate government offices.
             </Text>
+          </View>
+        )}
+
+        {!user && (
+          <View style={styles.featuresBox}>
+            <Text style={styles.featuresTitle}>What you can do with Suvidhaa:</Text>
+            <View style={styles.featureItem}>
+              <Ionicons name="document-text-outline" size={16} color="#4CAF50" />
+              <Text style={styles.featureText}>Upload and understand government documents with AI</Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Ionicons name="chatbubbles-outline" size={16} color="#FF9800" />
+              <Text style={styles.featureText}>Submit questions and suggestions to government</Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Ionicons name="analytics-outline" size={16} color="#9C27B0" />
+              <Text style={styles.featureText}>Track transparency metrics and your submissions</Text>
+            </View>
           </View>
         )}
       </View>
@@ -147,6 +193,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginTop: 16,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 8,
+    textAlign: 'center',
+    paddingHorizontal: 32,
   },
   form: {
     flex: 1,
@@ -233,5 +287,34 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#1976D2',
     lineHeight: 20,
+  },
+  featuresBox: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 16,
+    marginTop: 24,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  featuresTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 16,
+  },
+  featureItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  featureText: {
+    fontSize: 14,
+    color: '#666',
+    marginLeft: 12,
+    flex: 1,
+    lineHeight: 18,
   },
 });
