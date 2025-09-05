@@ -168,9 +168,15 @@ class SuvidhaaAPITester:
     def test_question_submission(self):
         """Test question submission with evidence"""
         try:
-            # The API expects JSON body for question_data, not form data
-            # Let's test without files first to see if the API works
-            question_data = {
+            # Create test evidence file
+            evidence_content = "यो प्रमाण फाइल हो जसमा सम्बन्धित जानकारी छ।".encode('utf-8')
+            
+            files = {
+                'evidence_files': ('evidence.txt', io.BytesIO(evidence_content), 'text/plain')
+            }
+            
+            # Send as form data (API now expects individual form fields)
+            data = {
                 'user_name': TEST_USER_NAME,
                 'email': TEST_USER_EMAIL,
                 'phone': TEST_USER_PHONE,
@@ -179,8 +185,9 @@ class SuvidhaaAPITester:
                 'government_office': 'स्थानीय तह विकास मन्त्रालय'
             }
             
-            # Try JSON approach first
-            response = self.session.post(f"{BASE_URL}/questions", json=question_data)
+            headers = {'Accept': 'application/json'}
+            
+            response = requests.post(f"{BASE_URL}/questions", files=files, data=data, headers=headers)
             
             if response.status_code == 200:
                 question = response.json()
