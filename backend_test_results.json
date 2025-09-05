@@ -1,0 +1,87 @@
+[
+  {
+    "test": "Root API Health Check",
+    "success": true,
+    "message": "API is responding correctly",
+    "timestamp": "2025-09-05T15:03:22.011509",
+    "details": null
+  },
+  {
+    "test": "Dashboard Statistics",
+    "success": true,
+    "message": "All statistics available",
+    "timestamp": "2025-09-05T15:03:22.068862",
+    "details": {
+      "total_documents": 0,
+      "documents_this_month": 0,
+      "total_questions": 0,
+      "answered_questions": 0,
+      "total_suggestions": 0,
+      "total_grievances": 0,
+      "resolved_grievances": 0
+    }
+  },
+  {
+    "test": "Document Upload & AI Processing",
+    "success": true,
+    "message": "Document uploaded and processed. AI summary: Here is the analysis of the government document in valid JSON format:\n\n```\n{\n  \"summary\": \"The Nepal...",
+    "timestamp": "2025-09-05T15:03:26.809922",
+    "details": null
+  },
+  {
+    "test": "Document Retrieval",
+    "success": true,
+    "message": "Retrieved 1 documents",
+    "timestamp": "2025-09-05T15:03:26.822964",
+    "details": null
+  },
+  {
+    "test": "Question Submission",
+    "success": false,
+    "message": "HTTP 422",
+    "timestamp": "2025-09-05T15:03:26.908836",
+    "details": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"question_data\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}"
+  },
+  {
+    "test": "Suggestion Submission",
+    "success": true,
+    "message": "Suggestion submitted successfully. ID: 44440fe4-225e-4ff7-96e0-5bc89bb6a1de",
+    "timestamp": "2025-09-05T15:03:26.928162",
+    "details": null
+  },
+  {
+    "test": "Co-signature Test",
+    "success": true,
+    "message": "Co-signature added successfully",
+    "timestamp": "2025-09-05T15:03:27.015247",
+    "details": null
+  },
+  {
+    "test": "Grievance Filing",
+    "success": false,
+    "message": "HTTP 422",
+    "timestamp": "2025-09-05T15:03:27.070284",
+    "details": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"grievance_data\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.11/v/missing\"}]}"
+  },
+  {
+    "test": "Watchlist Creation",
+    "success": true,
+    "message": "Watchlist created successfully. ID: ae684b24-916f-4f6d-8a9d-32436f4ee656",
+    "timestamp": "2025-09-05T15:03:27.090033",
+    "details": null
+  },
+  {
+    "test": "Watchlist Retrieval",
+    "success": true,
+    "message": "Retrieved 1 watchlists for user",
+    "timestamp": "2025-09-05T15:03:27.100332",
+    "details": null
+  },
+  {
+    "test": "User Submissions Retrieval",
+    "success": true,
+    "message": "Retrieved 1 total submissions",
+    "timestamp": "2025-09-05T15:03:27.151858",
+    "details": null
+  }
+]
