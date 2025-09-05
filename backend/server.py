@@ -330,7 +330,13 @@ async def get_document(document_id: str):
 # ACT Pillar - Questions, Suggestions, Grievances
 @api_router.post("/questions", response_model=Question)
 async def submit_question(
-    question_data: QuestionCreate,
+    user_name: str = Form(...),
+    email: str = Form(...),
+    phone: Optional[str] = Form(None),
+    question_text: str = Form(...),
+    category: str = Form(...),
+    related_document_id: Optional[str] = Form(None),
+    government_office: str = Form(...),
     evidence_files: List[UploadFile] = File(default=[])
 ):
     try:
