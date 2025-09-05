@@ -364,7 +364,13 @@ async def submit_question(
                 evidence_base64.append(base64.b64encode(file_content).decode('utf-8'))
         
         question = Question(
-            **question_data.dict(),
+            user_name=user_name,
+            email=email,
+            phone=phone,
+            question_text=question_text,
+            category=category,
+            related_document_id=related_document_id,
+            government_office=government_office,
             evidence_urls=evidence_urls,
             evidence_base64=evidence_base64
         )
