@@ -414,7 +414,13 @@ async def cosign_suggestion(suggestion_id: str, signer_name: str = Form(...), si
 
 @api_router.post("/grievances", response_model=Grievance)
 async def file_grievance(
-    grievance_data: GrievanceCreate,
+    user_name: str = Form(...),
+    email: str = Form(...),
+    phone: str = Form(...),
+    grievance_text: str = Form(...),
+    category: str = Form(...),
+    affected_area: str = Form(...),
+    government_office: str = Form(...),
     evidence_files: List[UploadFile] = File(default=[])
 ):
     try:
