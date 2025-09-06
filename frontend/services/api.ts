@@ -1,7 +1,37 @@
 import axios from 'axios';
 import Constants from 'expo-constants';
+import { Platform } from 'react-native';
 
-const API_BASE_URL = Constants.expoConfig?.extra?.backendUrl || process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:3000';
+// Platform-aware API base URL
+const getApiBaseUrl = () => {
+  // Check environment variable first (but only if explicitly set)
+  if (process.env.EXPO_PUBLIC_BACKEND_URL && !process.env.EXPO_PUBLIC_BACKEND_URL.includes('localhost')) {
+    return process.env.EXPO_PUBLIC_BACKEND_URL;
+  }
+  
+  // Platform-specific configuration
+  if (Platform.OS === 'android') {
+    // For Android emulator, use 10.0.2.2 to access host machine
+    return 'http://10.0.2.2:8000';
+  }
+  
+  if (Platform.OS === 'web') {
+    // For web, localhost works
+    return 'http://localhost:8000';
+  }
+  
+  // For iOS simulator, localhost should work
+  // For physical iOS device, might need network IP
+  return 'http://localhost:8000';
+};
+
+const API_BASE_URL = getApiBaseUrl();
+
+// Debug: Log the API base URL being used
+console.log('Platform:', Platform.OS);
+console.log('API_BASE_URL:', API_BASE_URL);
+console.log('Constants.expoConfig?.extra?.backendUrl:', Constants.expoConfig?.extra?.backendUrl);
+console.log('process.env.EXPO_PUBLIC_BACKEND_URL:', process.env.EXPO_PUBLIC_BACKEND_URL);
 
 const api = axios.create({
   baseURL: `${API_BASE_URL}/api`,
